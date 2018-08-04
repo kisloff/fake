@@ -9,8 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <scm>
-        <connection>scm:git:https://bitbucket.org/kiselioff/moneytransferrelease/src/master/</connection>
-        <tag>money-transfer-1.0</tag>
+        <connection>scm:git:https://github.com/kisloff/fake</connection>
     </scm>
 
     <build>
