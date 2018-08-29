@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.kkiselev</groupId>
     <artifactId>fake</artifactId>
     <version>1.0</version>
 
+    <!--${GIT_BRANCH##origin/}-->
+    <profiles>     <!-- Профиль для сборки на дженкинсе, не использовать при разработке -->
+        <profile>
+            <id>jenkins</id>
+            <description> <!--Проставить при создании новой release-ветки.             Необходимо рассмотреть возможность автоматизации данного процесса в части забора переменной             из имени ветки. Вероятно, решится добавлением maven-release-plugin--></description>
+            <properties>
+                <newVersion>1.2.${env.BUILD_NUMBER}</newVersion>
+                <properties.file>${project.basedir}/../config/main.properties</properties.file>
+            </properties>
+        </profile>
+    </profiles>
+
+
     <scm>
         <connection>scm:git:https://github.com/kisloff/fake</connection>
-      <tag>1.0</tag>
-  </scm>
+        <tag>1.0</tag>
+    </scm>
 
     <build>
         <plugins>
