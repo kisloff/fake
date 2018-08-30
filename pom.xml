@@ -4,7 +4,7 @@
 
     <groupId>ru.kkiselev</groupId>
     <artifactId>fake</artifactId>
-    <version>1.0.11</version>
+    <version>1.0.12-SNAPSHOT</version>
 
     <!--${GIT_BRANCH##origin/}-->
     <!--<profiles>     &lt;!&ndash; Профиль для сборки на дженкинсе, не использовать при разработке &ndash;&gt;-->
@@ -21,7 +21,7 @@
 
     <scm>
         <connection>scm:git:https://github.com/kisloff/fake</connection>
-        <tag>{project.version}</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <build>
