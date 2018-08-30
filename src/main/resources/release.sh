@@ -11,7 +11,7 @@
 
 # CHANGE THESE BEFORE RUNNING THE SCRIPT!
 # The version to be released
-releaseVersion=1.0.11
+releaseVersion=3.0.11
 # The next development version
 developmentVersion=1.0.12-SNAPSHOT
 # Provide an optional comment prefix, e.g. for your bug tracking system

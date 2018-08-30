@@ -9,6 +9,8 @@
 
 # Based on the excellent information found here: http://vincent.demeester.fr/2012/07/maven-release-gitflow/
 
+git checkout develop
+
 #take project version from pom
 echo 'Version resolving started'
 prevProjectVersion=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
@@ -21,6 +23,8 @@ echo releaseVersion=$releaseVersion
 mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT versions:commit | grep -v '\['
 developmentVersion=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
 echo developmentVersion=$developmentVersion
+
+git checkout pom.xml
 
 #mvn build-helper:parse-version versions:set -DnewVersion=$releaseVersion versions:commit | grep -v '\['
 #echo releaseVersion=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
