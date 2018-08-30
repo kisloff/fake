@@ -38,6 +38,7 @@ scmCommentPrefix='Release maker: '
 
 if git rev-parse --verify release/$releaseVersion; then echo 'branch exists. deleting' |  git branch -D release/$releaseVersion; else echo 'branch does not exist. creating'; fi
 
+git fetch upstream
 # Start the release by creating a new release branch
 git checkout -b release/$releaseVersion develop
 
