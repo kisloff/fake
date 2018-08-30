@@ -46,17 +46,17 @@ mvn --batch-mode release:prepare release:perform -DscmCommentPrefix="$scmComment
 
 # Clean up and finish
 # get back to the develop branch
-git checkout develop
-
-# merge the version back into develop
-git merge --no-ff -m "$scmCommentPrefix Merge release/$releaseVersion into develop" release/$releaseVersion
-# go to the master branch
-git checkout master
-# merge the version back into master but use the tagged version instead of the release/$releaseVersion HEAD
-git merge --no-ff -m "$scmCommentPrefix Merge previous version into master to avoid the increased version number" release/$releaseVersion~1
-# Removing the release branch --switched off
-#git branch -D release/$releaseVersion
-# Get back on the develop branch
-git checkout develop
-# Finally push everything
-git push --all && git push --tags
+#git checkout develop
+#
+## merge the version back into develop
+#git merge --no-ff -m "$scmCommentPrefix Merge release/$releaseVersion into develop" release/$releaseVersion
+## go to the master branch
+#git checkout master
+## merge the version back into master but use the tagged version instead of the release/$releaseVersion HEAD
+#git merge --no-ff -m "$scmCommentPrefix Merge previous version into master to avoid the increased version number" release/$releaseVersion~1
+## Removing the release branch --switched off
+##git branch -D release/$releaseVersion
+## Get back on the develop branch
+#git checkout develop
+## Finally push everything
+#git push --all && git push --tags
