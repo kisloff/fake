@@ -6,5 +6,6 @@ public class Main {
         System.out.println("feature 1");
         System.out.println("feature 2");
         System.out.println("Модный релиз посредством скрипта");
+        System.out.println("new change");
     }
 }
