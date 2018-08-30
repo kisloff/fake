@@ -9,6 +9,8 @@
 
 # Based on the excellent information found here: http://vincent.demeester.fr/2012/07/maven-release-gitflow/
 
+git checkout develop
+
 #take project version from pom
 echo 'Version resolving started'
 prevProjectVersion=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
@@ -16,19 +18,25 @@ echo prevProjectVersion=$prevProjectVersion
 
 mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion} versions:commit | grep -v '\['
 releaseVersion=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
+echo releaseVersion=$releaseVersion
 
-mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit | grep -v '\['
-echo developmentVersion=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
+mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT versions:commit | grep -v '\['
+developmentVersion=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
+echo developmentVersion=$developmentVersion
 
-mvn build-helper:parse-version versions:set -DnewVersion=$releaseVersion versions:commit | grep -v '\['
-echo releaseVersion=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
+git checkout pom.xml
+
+#mvn build-helper:parse-version versions:set -DnewVersion=$releaseVersion versions:commit | grep -v '\['
+#echo releaseVersion=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
 
 # The version to be released
 #releaseVersion=1.0.11
 # The next development version
 #developmentVersion=1.0.12-SNAPSHOT
 # Provide an optional comment prefix, e.g. for your bug tracking system
-scmCommentPrefix='GST-1234: '
+scmCommentPrefix='Release maker: '
+
+if git rev-parse --verify release/$releaseVersion; then echo 'branch exists. deleting' |  git branch -D release/$releaseVersion; else echo 'branch does not exist. creating'; fi
 
 # Start the release by creating a new release branch
 git checkout -b release/$releaseVersion develop

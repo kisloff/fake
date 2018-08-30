@@ -2,4 +2,5 @@
 *.iml
 release.properties
 pom.xml.releaseBackup
-fake/target
+target/
+/Users/kv/IdeaProjects/fake/src/main/resources/release.sh
