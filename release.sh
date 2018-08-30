@@ -28,7 +28,9 @@ echo releaseVersion=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:eva
 # The next development version
 #developmentVersion=1.0.12-SNAPSHOT
 # Provide an optional comment prefix, e.g. for your bug tracking system
-scmCommentPrefix='GST-1234: '
+scmCommentPrefix='Release maker: '
+
+if git rev-parse --verify release/$releaseVersion; then echo 'branch exists. deleting' |  git branch -D release/$releaseVersion; else echo 'branch does not exist. creating'; fi
 
 # Start the release by creating a new release branch
 git checkout -b release/$releaseVersion develop
