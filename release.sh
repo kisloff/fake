@@ -33,8 +33,8 @@ git merge --no-ff -m "$scmCommentPrefix Merge release/$releaseVersion into devel
 git checkout master
 # merge the version back into master but use the tagged version instead of the release/$releaseVersion HEAD
 git merge --no-ff -m "$scmCommentPrefix Merge previous version into master to avoid the increased version number" release/$releaseVersion~1
-# Removing the release branch
-git branch -D release/$releaseVersion
+# Removing the release branch --switched off
+#git branch -D release/$releaseVersion
 # Get back on the develop branch
 git checkout develop
 # Finally push everything
