@@ -9,11 +9,24 @@
 
 # Based on the excellent information found here: http://vincent.demeester.fr/2012/07/maven-release-gitflow/
 
-# CHANGE THESE BEFORE RUNNING THE SCRIPT!
+#take project version from pom
+echo 'Version resolving started'
+prevProjectVersion=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
+echo prevProjectVersion=$prevProjectVersion
+
+mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion} versions:commit | grep -v '\['
+releaseVersion=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
+
+mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit | grep -v '\['
+echo developmentVersion=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
+
+mvn build-helper:parse-version versions:set -DnewVersion=$releaseVersion versions:commit | grep -v '\['
+echo releaseVersion=`mvn -o org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
+
 # The version to be released
-releaseVersion=1.0.11
+#releaseVersion=1.0.11
 # The next development version
-developmentVersion=1.0.12-SNAPSHOT
+#developmentVersion=1.0.12-SNAPSHOT
 # Provide an optional comment prefix, e.g. for your bug tracking system
 scmCommentPrefix='GST-1234: '
 
@@ -33,8 +46,8 @@ git merge --no-ff -m "$scmCommentPrefix Merge release/$releaseVersion into devel
 git checkout master
 # merge the version back into master but use the tagged version instead of the release/$releaseVersion HEAD
 git merge --no-ff -m "$scmCommentPrefix Merge previous version into master to avoid the increased version number" release/$releaseVersion~1
-# Removing the release branch
-git branch -D release/$releaseVersion
+# Removing the release branch --switched off
+#git branch -D release/$releaseVersion
 # Get back on the develop branch
 git checkout develop
 # Finally push everything
