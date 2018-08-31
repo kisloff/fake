@@ -4,3 +4,4 @@ release.properties
 pom.xml.releaseBackup
 target/
 /Users/kv/IdeaProjects/fake/src/main/resources/release.sh
+test.sh
