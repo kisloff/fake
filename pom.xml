@@ -4,7 +4,7 @@
 
     <groupId>ru.kkiselev</groupId>
     <artifactId>fake</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0</version>
 
     <!--${GIT_BRANCH##origin/}-->
     <!--<profiles>     &lt;!&ndash; Профиль для сборки на дженкинсе, не использовать при разработке &ndash;&gt;-->
